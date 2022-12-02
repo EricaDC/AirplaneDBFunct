@@ -8,16 +8,20 @@ public class JDBConnection {
     public static void main(String[] args) {
 
         AllTables();
+        ReadColumn();
 
 
 
+        }
 
+        public static void ReadColumn(){
 
             try {
 
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/airportdb", "root", "taco");
+                //Line 20 is a custom based on your local database. Remove "airportdb" and replace with the db that your using. Likewise, use the username and password you used when setting up your database connection.
 
-                System.out.println("Connection Sucessful!.......");
+              //  System.out.println("Connection Sucessful!.......");
 
                 Statement statement = connection.createStatement();
 
@@ -30,7 +34,6 @@ public class JDBConnection {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
 
 
@@ -53,8 +56,7 @@ public class JDBConnection {
                 e.printStackTrace();
             }
 
-
-
+        System.out.println("-------------------------");
     }
 
 
