@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class JDBConnection {
      public static void main(String[] args) {
         // AllTables();
-        // ReadColumn();
+
+
 
         boolean run = true;
 
@@ -13,15 +14,20 @@ public class JDBConnection {
             // call a big method that calls other methods based on userinput
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Choose a function: 1.Display all tables; 2. ReadColumn; 3.Exit");
+            System.out.println("Choose a function: 1.Display all tables; 2. Employee Info; 3.Plane Info; 4. Passenger Info, 5. Exit");
             int userInput = scanner.nextInt();
             switch(userInput) {
                 case 1:
                     RunApp();
                     break;
                 case 2:
-                    ReadColumn();
+                    EmployeeInfo();
                     break;
+                case 3:
+                    AllPlanes();
+
+                case 4:
+                    PassengerInfo();
                 default:
                     break;
 
@@ -41,7 +47,7 @@ public class JDBConnection {
 
 
 
-    public static void ReadColumn() {
+    public static void EmployeeInfo() {
 
 
         try {
@@ -59,11 +65,15 @@ public class JDBConnection {
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("select * from airport");
+            ResultSet resultSet = statement.executeQuery("select * from employees");
 
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("ApCountry"));
-                System.out.println(resultSet.getString("ApCity"));
+                System.out.println(resultSet.getString("EmployeeID"));
+                System.out.println(resultSet.getString("FirstName"));
+                System.out.println(resultSet.getString("LastName"));
+                System.out.println("-------------------");
+
+
             }
             statement.close();
         } catch (Exception e) {
@@ -93,6 +103,81 @@ public class JDBConnection {
         }
 
         System.out.println("-------------------------");
+    }
+
+    public static void AllPlanes(){
+
+        try {
+
+            // Line 20 is a custom based on your local database. Remove "airportdb" and
+            // replace with the db that your using. Likewise, use the username and password
+            // you used when setting up your database connection.
+
+            // System.out.println("Connection Sucessful!.......");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/airportdb", "root",
+                    "taco");
+
+            System.out.println("Connection Sucessful!.......");
+
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("select * from Planes");
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("TailCode"));
+                System.out.println(resultSet.getString("Manufacturer"));
+                System.out.println(resultSet.getString("Model"));
+                System.out.println(resultSet.getString("MaxPassengers"));
+                System.out.println(resultSet.getString("AirlineID"));
+                System.out.println("-------------------");
+
+
+
+                // System.out.println(resultSet.getString("LastName"));
+
+            }
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public static void PassengerInfo(){
+        try {
+
+            // Line 20 is a custom based on your local database. Remove "airportdb" and
+            // replace with the db that your using. Likewise, use the username and password
+            // you used when setting up your database connection.
+
+            // System.out.println("Connection Sucessful!.......");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/airportdb", "root",
+                    "taco");
+
+            System.out.println("Connection Sucessful!.......");
+
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("select * from Passengers");
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("PassID"));
+                System.out.println(resultSet.getString("FirstName"));
+                System.out.println(resultSet.getString("LastName"));
+                System.out.println("-------------------");
+
+
+
+                // System.out.println(resultSet.getString("LastName"));
+
+            }
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
