@@ -9,7 +9,7 @@ public class JDBConnection {
 
         boolean run = true;
 
-        while (run = true) {
+        while (run) {
             // runApp()
             // call a big method that calls other methods based on userinput
             Scanner scanner = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class JDBConnection {
                 case 4:
                     PassengerInfo();
                 default:
-                    break;
+                	run = false;
 
             }
 
